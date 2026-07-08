@@ -13,20 +13,20 @@ export const metadata = {
     siteName: 'Alliance Française Valencia',
     images: [
       {
-        url: '/hero.png',
-        width: 1200,
-        height: 630,
-        alt: 'Alliance Française Valencia — Cursos, Horarios & Exámenes Oficiales',
+        url: '/logo-share.png',
+        width: 500,
+        height: 500,
+        alt: 'Alliance Française Valencia — Logo Oficial',
       },
     ],
     locale: 'es_VE',
     type: 'website',
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Alliance Française Valencia',
     description: 'Cursos oficiales de francés presencial en Valencia. Inscríbete hoy.',
-    images: ['/hero.png'],
+    images: ['/logo-share.png'],
   },
 };
 
