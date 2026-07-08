@@ -1,0 +1,209 @@
+/* =========================================
+   DESIGN TOKENS  – L'Esprit Culturel
+========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap');
+
+:root {
+  /* Brand */
+  --primary:                  #9e001f;
+  --primary-container:        #c8102e;
+  --surface-tint:             #bf0229;
+  --on-primary:               #ffffff;
+  --primary-fixed-dim:        #ffb3b1;
+
+  /* French Official Accents */
+  --france-blue:              #002395;
+  --france-blue-container:    #0c2a8f;
+  --france-red:               #ed2939;
+
+  /* Neutrals */
+  --secondary:                #5f5e5e;
+  --on-surface:               #1a1c1c;
+  --on-surface-variant:       #5c403f;
+  --surface:                  #f9f9f9;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low:    #f3f3f3;
+  --surface-container:        #eeeeee;
+  --surface-container-high:   #e8e8e8;
+  --inverse-surface:          #2f3131;
+  --on-tertiary:              #ffffff;
+  --on-tertiary-container:    #e2e3e3;
+  --outline-variant:          #e5bdbb;
+  --outline:                  #906f6e;
+
+  /* Typography */
+  --font-display: 'Bodoni Moda', Georgia, serif;
+  --font-body:    'Libre Franklin', system-ui, sans-serif;
+
+  /* Layout */
+  --container-max:   1200px;
+  --gutter:          24px;
+  --margin-desktop:  64px;
+  --section-gap:     120px;
+}
+
+/* =========================================
+   RESET
+========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--surface);
+  color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* =========================================
+   MATERIAL SYMBOLS
+========================================= */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+/* =========================================
+   SHARED LAYOUT
+========================================= */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--margin-desktop);
+}
+
+/* =========================================
+   SHARED BUTTONS
+========================================= */
+.btn-primary {
+  background: var(--primary-container);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 0;
+  border: none;
+  cursor: pointer;
+  transition: background .25s, transform .2s, box-shadow .2s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--surface-tint);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(200,16,46,.2);
+}
+
+.btn-outline-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 12px 22px;
+  white-space: nowrap;
+  transition: background .2s, color .2s;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--primary);
+  border-bottom: 1px solid rgba(158,0,31,.3);
+  padding-bottom: 2px;
+  transition: border-color .2s, gap .2s;
+  cursor: pointer;
+}
+.btn-text-link:hover {
+  border-color: var(--primary);
+  gap: 10px;
+}
+
+/* =========================================
+   SCROLL ANIMATIONS
+========================================= */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-ready {
+  opacity: 0;
+}
+.anim-in {
+  animation: fadeUp .65s ease forwards;
+}
+
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+========================================= */
+@media (max-width: 1024px) {
+  :root {
+    --margin-desktop: 32px;
+    --section-gap: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --margin-desktop: 20px;
+    --section-gap: 60px;
+  }
+}

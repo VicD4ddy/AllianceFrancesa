@@ -1,0 +1,337 @@
+.section {
+  padding: var(--section-gap) 0;
+  background: var(--surface-container-lowest);
+  border-top: 1px solid rgba(229, 189, 187, 0.4);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  gap: 24px;
+}
+.subTagline {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 42px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--on-surface);
+  margin-bottom: 12px;
+}
+.subtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--secondary);
+  max-width: 480px;
+}
+
+/* Bento grid */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 310px 310px;
+  gap: var(--gutter);
+}
+
+.bentoMain {
+  grid-column: 1 / 9;
+  grid-row: 1 / 3;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-container);
+}
+.bentoSide1 {
+  grid-column: 9 / 13;
+  grid-row: 1 / 2;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+}
+.bentoSide2 {
+  grid-column: 9 / 13;
+  grid-row: 2 / 3;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-container-high);
+  border: 1px solid var(--outline-variant);
+}
+
+/* Images (Next.js Image fill) */
+.bentoImg {
+  object-fit: cover;
+  transition: transform 0.7s ease !important;
+}
+.bentoMain:hover .bentoImg {
+  transform: scale(1.04);
+}
+.bentoSide1 .bentoImg {
+  opacity: 0.62;
+  mix-blend-mode: luminosity;
+  transition: transform 0.7s ease, opacity 0.5s, mix-blend-mode 0.5s !important;
+}
+.bentoSide1:hover .bentoImg {
+  opacity: 1;
+  mix-blend-mode: normal;
+  transform: scale(1.05);
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.22) 55%, transparent 100%);
+  z-index: 1;
+}
+
+/* Anniversary Badge (Allfra3 reference) */
+.anniversaryBadge {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  z-index: 3;
+  background: rgba(19, 18, 18, 0.88);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  backdrop-filter: blur(6px);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.annivNum {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 700;
+  color: #f7d057;
+  line-height: 0.9;
+}
+.annivText {
+  display: flex;
+  flex-direction: column;
+}
+.annivText span {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.15em;
+}
+.annivText small {
+  font-size: 9px;
+  color: var(--primary-fixed-dim);
+  letter-spacing: 0.05em;
+}
+
+/* Main card content */
+.bentoContent {
+  position: absolute;
+  inset: 0;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 2;
+}
+.tagWrap {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.tag {
+  display: inline-block;
+  background: var(--primary-container);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+.tagGold {
+  display: inline-block;
+  background: rgba(247, 208, 87, 0.18);
+  border: 1px solid #f7d057;
+  color: #f7d057;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+.mainTitle {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.8vw, 54px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.mainDesc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 480px;
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+.mainLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  transition: color 0.2s, gap 0.2s;
+}
+.mainLink:hover {
+  color: var(--primary-fixed-dim);
+  gap: 10px;
+}
+.mainLink .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Side cards shared */
+.sideTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 2;
+}
+.sideBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 18px;
+  z-index: 2;
+}
+
+.sideDate {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(4px);
+  color: var(--on-surface);
+  padding: 4px 8px;
+}
+.sideDateOutline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 4px 8px;
+}
+
+.sideTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--on-surface);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2px 6px;
+  line-height: 1.6;
+  display: inline;
+}
+.sideTitleDark {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-bottom: 8px;
+}
+.sideDesc {
+  font-size: 13px;
+  color: var(--secondary);
+  background: rgba(255, 255, 255, 0.9);
+  display: inline;
+  padding: 2px 6px;
+  line-height: 1.6;
+}
+.sideDescPlain {
+  font-size: 13px;
+  color: var(--secondary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.side2Bg {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-container-high);
+  transition: transform 0.7s;
+}
+.bentoSide2:hover .side2Bg {
+  transform: scale(1.02);
+}
+.sideLink {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(158, 0, 31, 0.3);
+  transition: text-decoration-color 0.2s;
+}
+.sideLink:hover {
+  text-decoration-color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .bentoGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 300px 240px;
+  }
+  .bentoMain { grid-column: 1 / 3; grid-row: 1; }
+  .bentoSide1 { grid-column: 1; grid-row: 2; }
+  .bentoSide2 { grid-column: 2; grid-row: 2; }
+}
+@media (max-width: 768px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 340px 220px 220px;
+  }
+  .bentoMain { grid-column: 1; grid-row: 1; }
+  .bentoSide1 { grid-column: 1; grid-row: 2; }
+  .bentoSide2 { grid-column: 1; grid-row: 3; }
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .header :global(.btn-outline-primary) {
+    width: 100%;
+    justify-content: center;
+  }
+  .anniversaryBadge { top: 16px; right: 16px; }
+  .bentoContent {
+    padding: 24px;
+  }
+}
