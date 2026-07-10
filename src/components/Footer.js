@@ -16,6 +16,7 @@ export default function Footer() {
               width={42}
               height={42}
               style={{ borderRadius: '10px' }}
+              unoptimized
             />
             <h2 className={styles.brandTitle} style={{ margin: 0 }}>Alliance Française Valencia</h2>
           </div>

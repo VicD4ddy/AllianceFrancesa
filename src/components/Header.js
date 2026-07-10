@@ -49,6 +49,7 @@ export default function Header() {
               height={52}
               className={styles.logoImg}
               priority
+              unoptimized
             />
             <div className={styles.logoText}>
               Alliance<br />Française<br />Valencia
