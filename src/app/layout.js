@@ -4,6 +4,11 @@ export const metadata = {
   title: 'Alliance Française Valencia – Vive la Inmersión Cultural Francesa',
   description:
     'Aprende francés presencial u online en Valencia con la única institución oficial avalada por la Embajada de Francia. Cursos, exámenes oficiales DELF/DALF y agenda cultural.',
+  icons: {
+    icon: '/logo-share.png',
+    shortcut: '/logo-share.png',
+    apple: '/logo-share.png',
+  },
   keywords: ['Alliance Française', 'Valencia', 'Venezuela', 'aprender francés', 'cursos de francés', 'DELF', 'DALF', 'certificación oficial'],
   authors: [{ name: 'Alliance Française Valencia' }],
   openGraph: {

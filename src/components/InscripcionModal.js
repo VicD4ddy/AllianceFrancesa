@@ -15,6 +15,11 @@ export default function InscripcionModal({
   useEffect(() => {
     if (cursoSeleccionado?.horario) {
       setHorarioElegido(cursoSeleccionado.horario);
+    } else if (cursoSeleccionado?.horarios?.length > 0) {
+      const h0 = cursoSeleccionado.horarios[0];
+      setHorarioElegido(`${h0.dias} (${h0.hora})`);
+    } else {
+      setHorarioElegido('');
     }
   }, [cursoSeleccionado]);
 
@@ -46,8 +51,10 @@ export default function InscripcionModal({
             <span className={styles.tag}>Alianza Francesa Valencia</span>
             <h3 className={styles.title}>Inscripción Rápida</h3>
           </div>
-          <button className={styles.closeBtn} onClick={onClose} aria-label="Cerrar modal">
-            ✕
+          <button className={styles.closeBtn} onClick={onClose} aria-label="Cerrar modal" title="Cerrar ventana">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 1L1 13M1 1L13 13" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </button>
         </div>
 
@@ -96,14 +103,32 @@ export default function InscripcionModal({
             <label className={styles.label} htmlFor="horario-select">
               Horario preferido
             </label>
-            <input
-              id="horario-select"
-              type="text"
-              className={styles.input}
-              placeholder="Ej. Martes y Jueves 3:30 pm o Sábados"
-              value={horarioElegido}
-              onChange={(e) => setHorarioElegido(e.target.value)}
-            />
+            {cursoSeleccionado?.horarios?.length > 0 ? (
+              <select
+                id="horario-select"
+                className={styles.select}
+                value={horarioElegido}
+                onChange={(e) => setHorarioElegido(e.target.value)}
+              >
+                {cursoSeleccionado.horarios.map((h) => (
+                  <option key={h.id} value={`${h.dias} (${h.hora})`}>
+                    {h.dias} — {h.hora}
+                  </option>
+                ))}
+                <option value="Consultar otros horarios disponibles">
+                  Consultar otros horarios disponibles
+                </option>
+              </select>
+            ) : (
+              <input
+                id="horario-select"
+                type="text"
+                className={styles.input}
+                placeholder="Ej. Martes y Jueves 3:30 pm o Sábados"
+                value={horarioElegido}
+                onChange={(e) => setHorarioElegido(e.target.value)}
+              />
+            )}
           </div>
 
           <button type="submit" className={styles.whatsappBtn}>
