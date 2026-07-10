@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -8,7 +9,16 @@ export default function Footer() {
 
         {/* Brand & Contact */}
         <div>
-          <h2 className={styles.brandTitle}>Alliance Française Valencia</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+            <Image
+              src="/logo-share.png"
+              alt="Alliance Française Valencia"
+              width={42}
+              height={42}
+              style={{ borderRadius: '10px' }}
+            />
+            <h2 className={styles.brandTitle} style={{ margin: 0 }}>Alliance Française Valencia</h2>
+          </div>
           <ul className={styles.contactList}>
             <li>
               <span className="material-symbols-outlined" aria-hidden="true">location_on</span>

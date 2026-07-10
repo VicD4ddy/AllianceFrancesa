@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -41,7 +42,14 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" className={styles.logoLink} aria-label="Alliance Française Valencia — página principal">
-            <div className={styles.logoAf} aria-hidden="true">af</div>
+            <Image
+              src="/logo-share.png"
+              alt="Alliance Française Valencia - Desde 1978"
+              width={52}
+              height={52}
+              className={styles.logoImg}
+              priority
+            />
             <div className={styles.logoText}>
               Alliance<br />Française<br />Valencia
             </div>
