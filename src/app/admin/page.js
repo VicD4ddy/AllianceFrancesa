@@ -483,13 +483,16 @@ export default function AdminPage() {
                       className={styles.accordionHeader}
                       onClick={() => setCursoAbierto(isOpen ? -1 : index)}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div className={styles.accordionTitleArea}>
                         <span className={styles.courseBadge}>{curso.modalidad}</span>
-                        <strong style={{ fontSize: '1.05rem' }}>{curso.titulo}</strong>
+                        <strong className={styles.courseTitleText}>{curso.titulo}</strong>
                       </div>
-                      <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#E1000F' }}>
-                        {isOpen ? '▲ Colapsar' : '▼ Editar curso'}
-                      </span>
+                      <div className={`${styles.accordionToggleBtn} ${isOpen ? styles.accordionToggleBtnActive : ''}`}>
+                        <span>{isOpen ? 'Ocultar' : 'Editar'}</span>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.chevronIcon}>
+                          <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
                     </div>
 
                     {isOpen && (
