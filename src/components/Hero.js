@@ -90,12 +90,13 @@ export default function Hero() {
           <div className={`${styles.decoCircle} ${styles.decoC2}`} />
           <div className={styles.heroPosterCard}>
             <Image
-              src="/hero.png"
+              src={heroData.heroImage || '/hero.png'}
               alt="Francés Presencial - Alliance Française Valencia"
               width={520}
               height={650}
               className={styles.heroPosterImg}
               priority
+              unoptimized
             />
           </div>
         </div>

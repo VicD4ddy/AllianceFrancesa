@@ -11,6 +11,49 @@ export default function AdminPage() {
   const [content, setContent] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
   const [guardando, setGuardando] = useState(false);
+  const [heroPreview, setHeroPreview] = useState(null);
+  const [subiendoImg, setSubiendoImg] = useState(false);
+
+  const handleHeroImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Previsualización local inmediata
+    const reader = new FileReader();
+    reader.onload = (ev) => setHeroPreview(ev.target.result);
+    reader.readAsDataURL(file);
+
+    // Subir al servidor
+    setSubiendoImg(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('pin', pin);
+      formData.append('filename', 'hero');
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        // Guardar la ruta en el CMS para que Hero.js la use
+        setContent({
+          ...content,
+          hero: { ...content.hero, heroImage: data.path + '?v=' + Date.now() }
+        });
+        setToastMessage('Imagen del Hero actualizada correctamente');
+        setTimeout(() => setToastMessage(''), 3000);
+      } else {
+        alert('Error al subir imagen: ' + (data.error || 'Desconocido'));
+      }
+    } catch (err) {
+      alert('Error de conexión al subir la imagen');
+    } finally {
+      setSubiendoImg(false);
+    }
+  };
 
   // Intentar cargar contenido
   const cargarContenido = async () => {
@@ -240,6 +283,66 @@ export default function AdminPage() {
                     })
                   }
                 />
+              </div>
+            </div>
+
+            {/* Sección de Imagen Hero */}
+            <div className={styles.card} style={{ marginTop: '1.5rem' }}>
+              <h3 className={styles.sectionTitle}>Imagen del Hero (Flyer / Poster)</h3>
+              <p className={styles.sectionSub}>
+                Sube una nueva imagen para reemplazar el flyer principal que aparece en la portada de la página.
+              </p>
+
+              <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                {/* Previsualización */}
+                <div style={{
+                  width: '220px',
+                  height: '275px',
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                  border: '2px solid #e2e8f0',
+                  background: '#f1f5f9',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  {heroPreview ? (
+                    <img
+                      src={heroPreview}
+                      alt="Previsualización del Hero"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <img
+                      src={content.hero?.heroImage || '/hero.png'}
+                      alt="Imagen actual del Hero"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  )}
+                </div>
+
+                <div style={{ flex: 1, minWidth: '250px' }}>
+                  <div className={styles.inputGroup}>
+                    <label className={styles.label}>Seleccionar nueva imagen</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleHeroImageUpload}
+                      className={styles.input}
+                      style={{ padding: '0.6rem' }}
+                    />
+                  </div>
+                  {subiendoImg && (
+                    <p style={{ color: '#002395', fontWeight: 600, marginTop: '0.75rem', fontSize: '0.9rem' }}>
+                      ⏳ Subiendo imagen al servidor...
+                    </p>
+                  )}
+                  <p style={{ color: '#64748b', fontSize: '0.82rem', marginTop: '0.75rem' }}>
+                    Formatos aceptados: PNG, JPG, WEBP. Tamaño recomendado: 520×650px.
+                    La imagen se reemplazará de inmediato al seleccionarla.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

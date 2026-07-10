@@ -4,7 +4,8 @@
     "headline": "Vive la Inmersión Cultural Francesa",
     "description": "Descubre el idioma, el arte y el pensamiento en el corazón de Valencia. Más que una escuela, tu puente directo a la cultura francófona.",
     "ctaPrimary": "Inicia tu Viaje Cultural",
-    "ctaSecondary": "Descubre nuestros cursos"
+    "ctaSecondary": "Descubre nuestros cursos",
+    "heroImage": "/hero.png"
   },
   "cursos": [
     {
