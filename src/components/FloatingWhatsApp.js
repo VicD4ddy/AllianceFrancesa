@@ -1,7 +1,7 @@
 'use client';
 import styles from './FloatingWhatsApp.module.css';
 
-export default function FloatingWhatsApp({ whatsappNumber = '584121234567' }) {
+export default function FloatingWhatsApp({ whatsappNumber = '584128458388' }) {
   const mensaje = `¡Bonjour Alianza Francesa Valencia! Quisiera solicitar información general sobre las próximas convocatorias de francés presencial.`;
   const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
 
