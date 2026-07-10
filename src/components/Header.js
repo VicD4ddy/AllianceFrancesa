@@ -57,6 +57,12 @@ export default function Header() {
             </div>
           </Link>
 
+          {/* Banderas de Cooperación Franco-Venezolana */}
+          <div className={styles.flagsContainer}>
+            <span className={styles.flagIcon} title="Francia">🇫🇷</span>
+            <span className={styles.flagIcon} title="Venezuela">🇻🇪</span>
+          </div>
+
           {/* Nav Desktop */}
           <nav className={styles.nav} aria-label="Navegación principal">
             <Link href="#cursos">Cursos &amp; Horarios</Link>

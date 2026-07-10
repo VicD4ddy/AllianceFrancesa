@@ -135,6 +135,31 @@
   margin-top: 1px;
 }
 
+.flagsContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(241, 245, 249, 0.6);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  flex-shrink: 0;
+}
+
+.flagIcon {
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  transition: transform 0.2s ease;
+}
+
+.flagIcon:hover {
+  transform: scale(1.2) rotate(4deg);
+}
+
 /* Navigation */
 .nav {
   display: flex;
