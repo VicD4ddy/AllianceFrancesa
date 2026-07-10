@@ -122,17 +122,10 @@
 }
 
 .brandLogo {
-  font-size: 1.35rem;
-  font-weight: 900;
-  color: #E1000F;
-  background: #fee2e2;
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display), sans-serif;
+  object-fit: contain;
   flex-shrink: 0;
 }
 

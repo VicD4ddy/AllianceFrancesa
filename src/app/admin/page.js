@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './admin.module.css';
 
 export default function AdminPage() {
@@ -255,7 +256,14 @@ export default function AdminPage() {
     <div className={`${styles.container} ${darkMode ? styles.containerDark : ''}`}>
       <header className={styles.topBar}>
         <div className={styles.brand}>
-          <span className={styles.brandLogo}>af</span>
+          <Image
+            src="/afico.png"
+            alt="Logo Alianza Francesa"
+            width={38}
+            height={38}
+            className={styles.brandLogo}
+            unoptimized
+          />
           <div className={styles.brandText}>
             <h2 className={styles.brandTitle}>Panel de Control</h2>
             <span className={styles.brandSubtitle}>Alianza Francesa Valencia</span>
