@@ -301,3 +301,161 @@
   z-index: 100;
   animation: slideUp 0.3s ease forwards;
 }
+
+/* Modo Oscuro (Dark Mode) */
+.containerDark {
+  min-height: 100vh;
+  background: #0b1120;
+  color: #f8fafc;
+  font-family: inherit;
+}
+
+.containerDark .card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+.containerDark .sectionTitle {
+  color: #f8fafc;
+}
+
+.containerDark .sectionSub {
+  color: #94a3b8;
+}
+
+.containerDark .input,
+.containerDark .textarea {
+  background: #0f172a;
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.containerDark .label {
+  color: #cbd5e1;
+}
+
+.containerDark .tabNav {
+  background: #0f172a;
+  border-bottom-color: #334155;
+}
+
+.containerDark .tabBtn {
+  color: #94a3b8;
+}
+
+.containerDark .tabBtnActive {
+  color: #fca5a5;
+}
+
+.containerDark .header {
+  background: #0f172a;
+  border-bottom: 1px solid #334155;
+}
+
+/* Acordeón de Cursos en Móvil */
+.accordionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  user-select: none;
+}
+
+.accordionHeader:hover {
+  opacity: 0.9;
+}
+
+/* Botón Flotante Rápido de Guardado en Móvil (FAB) */
+.mobileFab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #E1000F;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.4rem;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 8px 25px rgba(225, 0, 15, 0.45);
+  cursor: pointer;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.mobileFab:active {
+  transform: scale(0.95);
+}
+
+/* Media Queries Responsivos (Mobile Mode) */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .headerLeft {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .headerActions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .tabNav {
+    padding: 0 1rem;
+    gap: 1.25rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .tabNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main {
+    padding: 0 1rem;
+    margin: 1.25rem auto;
+  }
+
+  .card {
+    padding: 1.35rem 1rem;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .formGridFull {
+    grid-column: span 1;
+  }
+
+  .horarioRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 5rem;
+    text-align: center;
+  }
+}

@@ -4,6 +4,7 @@ import CursosHorarios from '@/components/CursosHorarios';
 import CulturaEventos from '@/components/CulturaEventos';
 import Pasaporte from '@/components/Pasaporte';
 import Footer from '@/components/Footer';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Pasaporte />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </>
   );
 }

@@ -1,0 +1,68 @@
+.floatingBtn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 990;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #25D366;
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: floatPulse 3s infinite;
+}
+
+.floatingBtn:hover {
+  background: #1faf53;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+@keyframes floatPulse {
+  0% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+  }
+  50% {
+    box-shadow: 0 8px 32px rgba(37, 211, 102, 0.75);
+  }
+  100% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+  }
+}
+
+/* En teléfonos móviles, mantengamos el botón cómodo y visible */
+@media (max-width: 768px) {
+  .floatingBtn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .label {
+    display: none; /* En pantallas ultra estrechas mostramos solo el icono circular grande */
+  }
+  .floatingBtn {
+    padding: 0.85rem;
+    border-radius: 50%;
+  }
+}

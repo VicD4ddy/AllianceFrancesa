@@ -13,6 +13,8 @@ export default function AdminPage() {
   const [guardando, setGuardando] = useState(false);
   const [heroPreview, setHeroPreview] = useState(null);
   const [subiendoImg, setSubiendoImg] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [cursoAbierto, setCursoAbierto] = useState(0);
 
   const handleHeroImageUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -250,7 +252,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${darkMode ? styles.containerDark : ''}`}>
       {/* Top Bar */}
       <header className={styles.topBar}>
         <div className={styles.brand}>
@@ -259,8 +261,25 @@ export default function AdminPage() {
         </div>
 
         <div className={styles.topActions}>
+          <button
+            type="button"
+            onClick={() => setDarkMode(!darkMode)}
+            style={{
+              background: darkMode ? '#334155' : '#e2e8f0',
+              color: darkMode ? '#f8fafc' : '#0f172a',
+              border: 'none',
+              padding: '0.55rem 0.85rem',
+              borderRadius: '10px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              fontSize: '0.85rem'
+            }}
+          >
+            {darkMode ? '☀️ Modo Claro' : '🌙 Modo Noche'}
+          </button>
+
           <Link href="/" target="_blank" className={styles.previewBtn}>
-            👁️ Ver Web en Vivo
+            👁️ Ver Web
           </Link>
           <button
             onClick={handleGuardarCambios}
@@ -455,14 +474,26 @@ export default function AdminPage() {
                 Cambia las etiquetas destacadas (&quot;¡Inscripciones Abiertas!&quot;, &quot;¡Últimos cupos!&quot;) y edita los horarios de cada programa.
               </p>
 
-              {content.cursos?.map((curso, index) => (
-                <div key={curso.id} className={styles.courseItemCard}>
-                  <div className={styles.courseItemHeader}>
-                    <span className={styles.courseBadge}>{curso.modalidad}</span>
-                    <strong style={{ fontSize: '1.1rem' }}>{curso.titulo}</strong>
-                  </div>
+              {content.cursos?.map((curso, index) => {
+                const isOpen = cursoAbierto === index;
+                return (
+                  <div key={curso.id} className={styles.courseItemCard}>
+                    <div
+                      className={styles.accordionHeader}
+                      onClick={() => setCursoAbierto(isOpen ? -1 : index)}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <span className={styles.courseBadge}>{curso.modalidad}</span>
+                        <strong style={{ fontSize: '1.05rem' }}>{curso.titulo}</strong>
+                      </div>
+                      <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#E1000F' }}>
+                        {isOpen ? '▲ Colapsar' : '▼ Editar curso'}
+                      </span>
+                    </div>
 
-                  <div className={styles.formGrid}>
+                    {isOpen && (
+                      <div style={{ marginTop: '1.25rem', borderTop: '1px solid #e2e8f0', paddingTop: '1.25rem' }}>
+                        <div className={styles.formGrid}>
                     <div className={styles.inputGroup}>
                       <label className={styles.label}>Etiqueta Destacada (Rojo Alianza)</label>
                       <input
@@ -570,11 +601,14 @@ export default function AdminPage() {
                         >
                           🗑️
                         </button>
-                      </div>
-                    ))}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )}
+              </div>
+            );
+          })}
             </div>
           </div>
         )}
