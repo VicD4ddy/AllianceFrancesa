@@ -110,11 +110,29 @@
   transform: scale(1.05);
 }
 .logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.logoTitle {
   font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 800;
   color: var(--primary);
-  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.logoSubtitle {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--secondary);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-top: 1px;
 }
 
 /* Navigation */

@@ -52,7 +52,8 @@ export default function Header() {
               unoptimized
             />
             <div className={styles.logoText}>
-              Alliance<br />Française<br />Valencia
+              <span className={styles.logoTitle}>Alliance Française</span>
+              <span className={styles.logoSubtitle}>Valencia</span>
             </div>
           </Link>
 
