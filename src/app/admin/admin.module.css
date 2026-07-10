@@ -154,25 +154,6 @@
   gap: 0.65rem;
 }
 
-.themeToggleBtn {
-  background: #f1f5f9;
-  color: #334155;
-  border: none;
-  padding: 0.55rem 0.85rem;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-shrink: 0;
-}
-
-.themeToggleBtn:hover {
-  background: #e2e8f0;
-}
 
 .previewBtn {
   background: #eff6ff;
@@ -351,56 +332,7 @@
   animation: slideUp 0.3s ease forwards;
 }
 
-/* Modo Oscuro (Dark Mode) */
-.containerDark {
-  min-height: 100vh;
-  background: #0b1120;
-  color: #f8fafc;
-  font-family: inherit;
-}
 
-.containerDark .card {
-  background: #1e293b;
-  border-color: #334155;
-  color: #f8fafc;
-}
-
-.containerDark .sectionTitle {
-  color: #f8fafc;
-}
-
-.containerDark .sectionSub {
-  color: #94a3b8;
-}
-
-.containerDark .input,
-.containerDark .textarea {
-  background: #0f172a;
-  border-color: #475569;
-  color: #f8fafc;
-}
-
-.containerDark .label {
-  color: #cbd5e1;
-}
-
-.containerDark .tabNav {
-  background: #0f172a;
-  border-bottom-color: #334155;
-}
-
-.containerDark .tabBtn {
-  color: #94a3b8;
-}
-
-.containerDark .tabBtnActive {
-  color: #fca5a5;
-}
-
-.containerDark .header {
-  background: #0f172a;
-  border-bottom: 1px solid #334155;
-}
 
 /* Acordeón de Cursos en Móvil */
 .accordionHeader {
@@ -453,15 +385,6 @@
   color: #E1000F;
 }
 
-.containerDark .accordionToggleBtn {
-  background: #334155;
-  color: #cbd5e1;
-}
-
-.containerDark .accordionToggleBtnActive {
-  background: rgba(225, 0, 15, 0.2);
-  color: #fca5a5;
-}
 
 .chevronIcon {
   transition: transform 0.25s ease;
@@ -528,11 +451,10 @@
   .topActions {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1.2fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: 0.5rem;
   }
 
-  .themeToggleBtn,
   .previewBtn,
   .saveBtn {
     width: 100%;

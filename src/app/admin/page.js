@@ -14,7 +14,6 @@ export default function AdminPage() {
   const [guardando, setGuardando] = useState(false);
   const [heroPreview, setHeroPreview] = useState(null);
   const [subiendoImg, setSubiendoImg] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [cursoAbierto, setCursoAbierto] = useState(0);
 
   const handleHeroImageUpload = async (e) => {
@@ -253,7 +252,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className={`${styles.container} ${darkMode ? styles.containerDark : ''}`}>
+    <div className={styles.container}>
       <header className={styles.topBar}>
         <div className={styles.brand}>
           <Image
@@ -271,14 +270,6 @@ export default function AdminPage() {
         </div>
 
         <div className={styles.topActions}>
-          <button
-            type="button"
-            onClick={() => setDarkMode(!darkMode)}
-            className={styles.themeToggleBtn}
-          >
-            {darkMode ? '☀️ Claro' : '🌙 Noche'}
-          </button>
-
           <Link href="/" target="_blank" className={styles.previewBtn}>
             👁️ Ver Web
           </Link>
