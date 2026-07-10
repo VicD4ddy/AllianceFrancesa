@@ -3,25 +3,135 @@ import path from 'path';
 
 const CONTENT_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'content.json');
 
-/**
- * Obtiene el contenido completo de la página.
- * Soporta de forma transparente almacenamiento local en archivo JSON o
- * base de datos externa en la nube si las variables de entorno están configuradas.
- */
+export const DEFAULT_CONTENT = {
+  hero: {
+    badge: "Valencia, Venezuela",
+    headline: "Vive la Inmersión Cultural Francesa",
+    description: "Descubre el idioma, el arte y el pensamiento en el corazón de Valencia. Más que una escuela, tu puente directo a la cultura francófona.",
+    ctaPrimary: "Inicia tu Viaje Cultural",
+    ctaSecondary: "Descubre nuestros cursos",
+    heroImage: "/hero.png"
+  },
+  cursos: [
+    {
+      id: "presencial",
+      titulo: "Francés Presencial",
+      subtitulo: "Programa Presencial • Próximo Inicio: Trimestre en Curso",
+      descripcion: "Clases dinámicas e inmersivas en nuestra sede de Av. Bolívar Norte (San José). Grupos reducidos con profesores nativos y certificados.",
+      icono: "school",
+      etiquetaEstado: "¡Inscripciones Abiertas!",
+      modalidad: "Presencial",
+      horarios: [
+        {
+          id: "p1",
+          dias: "Martes y Jueves",
+          hora: "de 3:30 a 5:30 pm",
+          tipo: "Semanal"
+        },
+        {
+          id: "p2",
+          dias: "Martes y Jueves",
+          hora: "de 6:00 a 8:00 pm",
+          tipo: "Semanal"
+        },
+        {
+          id: "p3",
+          dias: "Sábados Intensivos",
+          hora: "de 8:00 am a 12:00 pm",
+          tipo: "Sabatino"
+        }
+      ],
+      beneficios: [
+        "Única institución avalada por la Embajada de Francia en Carabobo.",
+        "Acceso directo a nuestra mediateca cultural y biblioteca en francés.",
+        "Metodología 100% comunicativa desde la primera sesión."
+      ]
+    },
+    {
+      id: "conversacion",
+      titulo: "Club de Conversación",
+      subtitulo: "Práctica Guiada • Niveles A2 en adelante",
+      descripcion: "Perfecciona tu fluidez oral, pronunciación y argumentación en debates sobre actualidad, cine, literatura y cultura francófona.",
+      icono: "forum",
+      etiquetaEstado: "¡Últimos 4 cupos!",
+      modalidad: "Presencial / Híbrida",
+      horarios: [
+        {
+          id: "c1",
+          dias: "Viernes Culturales",
+          hora: "de 4:00 a 6:00 pm",
+          tipo: "Semanal"
+        },
+        {
+          id: "c2",
+          dias: "Sábados de Café Francófono",
+          hora: "de 10:30 am a 12:30 pm",
+          tipo: "Sabatino"
+        }
+      ],
+      beneficios: [
+        "Ambiente relajado estilo café literario parisino.",
+        "Corrección fonética y enriquecimiento de vocabulario idiomático.",
+        "Acceso prioritario a proyecciones de cine francés."
+      ]
+    },
+    {
+      id: "delf",
+      titulo: "Exámenes DELF / DALF",
+      subtitulo: "Certificación Oficial • Ministerio de Educación de Francia",
+      descripcion: "Prepárate con los únicos examinadores oficiales acreditados en Valencia. Certificados con validez internacional y de por vida.",
+      icono: "verified",
+      etiquetaEstado: "Convocatoria Abierta",
+      modalidad: "Certificación",
+      horarios: [
+        {
+          id: "d1",
+          dias: "Taller Preparatorio Intensivo",
+          hora: "Lunes y Miércoles 5:00 a 7:00 pm",
+          tipo: "Semanal"
+        },
+        {
+          id: "d2",
+          dias: "Sesión Oficial de Examen",
+          hora: "Convocatoria Mensual",
+          tipo: "Especial"
+        }
+      ],
+      beneficios: [
+        "Simulacros reales de examen oral y escrito con cronómetro.",
+        "Material oficial actualizado de Francia.",
+        "Asesoría para estudios universitarios en Francia y Quebec."
+      ]
+    }
+  ],
+  cultura: {
+    subTagline: "Agenda Cultural Francófona",
+    title: "Cultura, Cine & Eventos",
+    subtitle: "Sumérgete en una vibrante agenda cultural diseñada para acercarte a la esencia francófona a través del cine, el arte y la gastronomía.",
+    destacado: {
+      titulo: "40 Años de Festival de Cine Francés",
+      fecha: "Todos los Jueves • Mediateca AF Valencia",
+      descripcion: "Proyecciones exclusivas con foro de debate sobre el nuevo cine y clásicos franceses.",
+      imagen: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200&q=80"
+    }
+  },
+  contacto: {
+    sede: "Av. Bolívar Norte (San José), Valencia, Estado Carabobo",
+    whatsapp: "584121234567",
+    email: "valencia@afvenezuela.org"
+  }
+};
+
 export async function getContent() {
   try {
     const data = await fs.readFile(CONTENT_FILE_PATH, 'utf-8');
     return JSON.parse(data);
   } catch (error) {
-    console.error('Error leyendo content.json:', error);
-    throw new Error('No se pudo cargar el contenido de la aplicación');
+    console.error('Error leyendo content.json, devolviendo default:', error);
+    return DEFAULT_CONTENT;
   }
 }
 
-/**
- * Guarda y sobrescribe el contenido de la página.
- * Actualiza tanto el archivo local en el servidor como la persistencia de datos.
- */
 export async function saveContent(newContent) {
   try {
     const formattedJson = JSON.stringify(newContent, null, 2);
@@ -31,4 +141,8 @@ export async function saveContent(newContent) {
     console.error('Error guardando content.json:', error);
     throw new Error('No se pudo guardar la actualización de contenido');
   }
+}
+
+export async function resetContent() {
+  return await saveContent(DEFAULT_CONTENT);
 }

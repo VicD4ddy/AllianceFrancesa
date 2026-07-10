@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getContent, saveContent } from '@/lib/cmsService';
+import { getContent, saveContent, resetContent } from '@/lib/cmsService';
 
 const ADMIN_PIN = process.env.ADMIN_PIN || 'AFV-2026';
 
@@ -20,7 +20,6 @@ export async function PUT(request) {
     const body = await request.json();
     const { pin, content } = body;
 
-    // Verificar seguridad básica por PIN de Administrador
     if (pin !== ADMIN_PIN) {
       return NextResponse.json(
         { error: 'PIN de Administrador incorrecto. No autorizado.' },
@@ -41,6 +40,30 @@ export async function PUT(request) {
     console.error('Error en PUT /api/content:', error);
     return NextResponse.json(
       { error: 'Error guardando el contenido' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const body = await request.json();
+    const { pin } = body;
+
+    if (pin !== ADMIN_PIN) {
+      return NextResponse.json(
+        { error: 'PIN de Administrador incorrecto. No autorizado.' },
+        { status: 401 }
+      );
+    }
+
+    const result = await resetContent();
+    const updatedContent = await getContent();
+    return NextResponse.json({ success: true, content: updatedContent, ...result });
+  } catch (error) {
+    console.error('Error en DELETE /api/content:', error);
+    return NextResponse.json(
+      { error: 'Error restaurando el contenido' },
       { status: 500 }
     );
   }

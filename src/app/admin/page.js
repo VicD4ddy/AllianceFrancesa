@@ -55,6 +55,98 @@ export default function AdminPage() {
     }
   };
 
+  const [culturaPreview, setCulturaPreview] = useState(null);
+  const [subiendoCulturaImg, setSubiendoCulturaImg] = useState(false);
+
+  const handleCulturaImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => setCulturaPreview(ev.target.result);
+    reader.readAsDataURL(file);
+
+    setSubiendoCulturaImg(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('pin', pin);
+      formData.append('filename', 'cultura_destacado');
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setContent({
+          ...content,
+          cultura: {
+            ...content.cultura,
+            destacado: {
+              ...content.cultura?.destacado,
+              imagen: data.path + '?v=' + Date.now()
+            }
+          }
+        });
+        setToastMessage('Imagen de evento cultural subida correctamente');
+        setTimeout(() => setToastMessage(''), 3000);
+      } else {
+        alert('Error al subir imagen: ' + (data.error || 'Desconocido'));
+      }
+    } catch (err) {
+      alert('Error de conexión al subir la imagen del evento');
+    } finally {
+      setSubiendoCulturaImg(false);
+    }
+  };
+
+  const handleResetOficiales = async () => {
+    if (!confirm('¿Estás seguro de restaurar los valores oficiales de la Alianza Francesa Valencia? Esto reemplazará las ediciones actuales.')) {
+      return;
+    }
+    try {
+      const res = await fetch('/api/content', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin })
+      });
+      const data = await res.json();
+      if (res.ok && data.content) {
+        setContent(data.content);
+        setToastMessage('Valores oficiales restaurados con éxito');
+        setTimeout(() => setToastMessage(''), 4000);
+      } else {
+        alert('Error al restaurar: ' + (data.error || 'No autorizado'));
+      }
+    } catch (e) {
+      alert('Error de conexión');
+    }
+  };
+
+  const agregarHorario = (cursoIndex) => {
+    const nuevosCursos = [...content.cursos];
+    const curso = nuevosCursos[cursoIndex];
+    const nuevoId = 'h_' + Date.now();
+    curso.horarios = [
+      ...curso.horarios,
+      {
+        id: nuevoId,
+        dias: 'Nuevo Horario',
+        hora: 'de 4:00 a 6:00 pm',
+        tipo: 'Semanal'
+      }
+    ];
+    setContent({ ...content, cursos: nuevosCursos });
+  };
+
+  const eliminarHorario = (cursoIndex, horarioIndex) => {
+    const nuevosCursos = [...content.cursos];
+    nuevosCursos[cursoIndex].horarios.splice(horarioIndex, 1);
+    setContent({ ...content, cursos: nuevosCursos });
+  };
+
   // Intentar cargar contenido
   const cargarContenido = async () => {
     try {
@@ -199,6 +291,12 @@ export default function AdminPage() {
           onClick={() => setActiveTab('cultura')}
         >
           Agenda Cultural &amp; Eventos
+        </button>
+        <button
+          className={`${styles.tabBtn} ${activeTab === 'contacto' ? styles.tabBtnActive : ''}`}
+          onClick={() => setActiveTab('contacto')}
+        >
+          Contacto &amp; Configuración
         </button>
       </nav>
 
@@ -409,11 +507,29 @@ export default function AdminPage() {
 
                   {/* Horarios */}
                   <div className={styles.horariosList}>
-                    <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#334155', marginTop: '0.5rem' }}>
-                      Horarios disponibles para {curso.titulo}:
-                    </span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>
+                      <span style={{ fontWeight: 700, fontSize: '0.9rem', color: '#334155' }}>
+                        Horarios disponibles para {curso.titulo}:
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => agregarHorario(index)}
+                        style={{
+                          background: '#EFF6FF',
+                          color: '#002395',
+                          border: '1px solid #BFDBFE',
+                          borderRadius: '8px',
+                          padding: '0.35rem 0.75rem',
+                          fontSize: '0.82rem',
+                          fontWeight: 700,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        + Agregar Horario
+                      </button>
+                    </div>
                     {curso.horarios?.map((horario, hIdx) => (
-                      <div key={horario.id} className={styles.horarioRow}>
+                      <div key={horario.id} className={styles.horarioRow} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                         <input
                           type="text"
                           className={styles.input}
@@ -438,6 +554,22 @@ export default function AdminPage() {
                             setContent({ ...content, cursos: nuevosCursos });
                           }}
                         />
+                        <button
+                          type="button"
+                          onClick={() => eliminarHorario(index, hIdx)}
+                          title="Eliminar este horario"
+                          style={{
+                            background: '#FEE2E2',
+                            color: '#DC2626',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '0.55rem 0.75rem',
+                            cursor: 'pointer',
+                            fontWeight: 'bold'
+                          }}
+                        >
+                          🗑️
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -506,6 +638,132 @@ export default function AdminPage() {
                   }
                 />
               </div>
+            </div>
+
+            {/* Subida de Imagen Evento Cultural */}
+            <div className={styles.card} style={{ marginTop: '1.5rem' }}>
+              <h3 className={styles.sectionTitle}>Afiche / Imagen del Evento Cultural</h3>
+              <p className={styles.sectionSub}>Sube una imagen para el evento destacado (ej: Festival de Cine Francés).</p>
+
+              <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                <div style={{
+                  width: '220px',
+                  height: '140px',
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                  border: '2px solid #e2e8f0',
+                  background: '#f1f5f9',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <img
+                    src={culturaPreview || content.cultura?.destacado?.imagen || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200&q=80'}
+                    alt="Previsualización Evento"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </div>
+
+                <div style={{ flex: 1, minWidth: '250px' }}>
+                  <div className={styles.inputGroup}>
+                    <label className={styles.label}>Seleccionar imagen del evento</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleCulturaImageUpload}
+                      className={styles.input}
+                      style={{ padding: '0.6rem' }}
+                    />
+                  </div>
+                  {subiendoCulturaImg && (
+                    <p style={{ color: '#002395', fontWeight: 600, marginTop: '0.75rem', fontSize: '0.9rem' }}>
+                      ⏳ Subiendo imagen del evento...
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 4: Contacto y Configuración General */}
+        {activeTab === 'contacto' && (
+          <div>
+            <div className={styles.card}>
+              <h3 className={styles.sectionTitle}>Configuración Institucional &amp; WhatsApp</h3>
+              <p className={styles.sectionSub}>Administra la línea de atención oficial, correo y dirección de la sede.</p>
+
+              <div className={styles.formGrid}>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Número de WhatsApp de Inscripciones (código de país sin signo +)</label>
+                  <input
+                    type="text"
+                    className={styles.input}
+                    value={content.contacto?.whatsapp || '584121234567'}
+                    onChange={(e) =>
+                      setContent({
+                        ...content,
+                        contacto: { ...content.contacto, whatsapp: e.target.value }
+                      })
+                    }
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Correo Electrónico Oficial</label>
+                  <input
+                    type="email"
+                    className={styles.input}
+                    value={content.contacto?.email || 'valencia@afvenezuela.org'}
+                    onChange={(e) =>
+                      setContent({
+                        ...content,
+                        contacto: { ...content.contacto, email: e.target.value }
+                      })
+                    }
+                  />
+                </div>
+
+                <div className={styles.inputGroup + ' ' + styles.formGridFull}>
+                  <label className={styles.label}>Dirección Física de la Sede</label>
+                  <input
+                    type="text"
+                    className={styles.input}
+                    value={content.contacto?.sede || 'Av. Bolívar Norte (San José), Valencia, Estado Carabobo'}
+                    onChange={(e) =>
+                      setContent({
+                        ...content,
+                        contacto: { ...content.contacto, sede: e.target.value }
+                      })
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Card de Respaldo y Restauración */}
+            <div className={styles.card} style={{ marginTop: '1.5rem', borderLeft: '4px solid #E1000F' }}>
+              <h3 className={styles.sectionTitle} style={{ color: '#E1000F' }}>Restauración &amp; Respaldo del Sistema</h3>
+              <p className={styles.sectionSub}>
+                Si deseas revertir cualquier error de edición y recuperar todos los textos y horarios oficiales predeterminados por la Alianza Francesa Valencia, haz clic en el botón inferior.
+              </p>
+              <button
+                type="button"
+                onClick={handleResetOficiales}
+                style={{
+                  background: '#FEE2E2',
+                  color: '#DC2626',
+                  border: '1px solid #FCA5A5',
+                  padding: '0.75rem 1.25rem',
+                  borderRadius: '10px',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  fontSize: '0.95rem'
+                }}
+              >
+                🔄 Restaurar Todos los Valores Oficiales por Defecto
+              </button>
             </div>
           </div>
         )}
