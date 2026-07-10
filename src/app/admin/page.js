@@ -253,29 +253,22 @@ export default function AdminPage() {
 
   return (
     <div className={`${styles.container} ${darkMode ? styles.containerDark : ''}`}>
-      {/* Top Bar */}
       <header className={styles.topBar}>
         <div className={styles.brand}>
-          <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#E1000F' }}>af</span>
-          <h2 className={styles.brandTitle}>Panel de Administrador • Alianza Francesa</h2>
+          <span className={styles.brandLogo}>af</span>
+          <div className={styles.brandText}>
+            <h2 className={styles.brandTitle}>Panel de Control</h2>
+            <span className={styles.brandSubtitle}>Alianza Francesa Valencia</span>
+          </div>
         </div>
 
         <div className={styles.topActions}>
           <button
             type="button"
             onClick={() => setDarkMode(!darkMode)}
-            style={{
-              background: darkMode ? '#334155' : '#e2e8f0',
-              color: darkMode ? '#f8fafc' : '#0f172a',
-              border: 'none',
-              padding: '0.55rem 0.85rem',
-              borderRadius: '10px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontSize: '0.85rem'
-            }}
+            className={styles.themeToggleBtn}
           >
-            {darkMode ? '☀️ Modo Claro' : '🌙 Modo Noche'}
+            {darkMode ? '☀️ Claro' : '🌙 Noche'}
           </button>
 
           <Link href="/" target="_blank" className={styles.previewBtn}>
@@ -286,7 +279,7 @@ export default function AdminPage() {
             disabled={guardando}
             className={styles.saveBtn}
           >
-            {guardando ? 'Guardando...' : '💾 Publicar Cambios'}
+            {guardando ? 'Guardando...' : '💾 Guardar'}
           </button>
         </div>
       </header>
@@ -801,6 +794,16 @@ export default function AdminPage() {
             </div>
           </div>
         )}
+      {/* Botón flotante de guardado rápido en móvil */}
+      <button
+        type="button"
+        onClick={handleGuardarCambios}
+        disabled={guardando}
+        className={styles.mobileFab}
+        title="Guardar todos los cambios"
+      >
+        {guardando ? '⏳ ...' : '💾 Guardar'}
+      </button>
       </main>
 
       {/* Toast Notification */}

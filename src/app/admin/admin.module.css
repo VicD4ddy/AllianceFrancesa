@@ -105,60 +105,116 @@
 .topBar {
   background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
-  padding: 1.25rem 2rem;
+  padding: 0.85rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.75rem;
+}
+
+.brandLogo {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #E1000F;
+  background: #fee2e2;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display), sans-serif;
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
 }
 
 .brandTitle {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: #002395;
   margin: 0;
+  line-height: 1.1;
+}
+
+.brandSubtitle {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .topActions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.65rem;
+}
+
+.themeToggleBtn {
+  background: #f1f5f9;
+  color: #334155;
+  border: none;
+  padding: 0.55rem 0.85rem;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.themeToggleBtn:hover {
+  background: #e2e8f0;
 }
 
 .previewBtn {
-  background: #f1f5f9;
-  color: #334155;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.6rem 1.1rem;
+  background: #eff6ff;
+  color: #002395;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.55rem 0.85rem;
   border-radius: 10px;
   text-decoration: none;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
 }
 
 .previewBtn:hover {
-  background: #e2e8f0;
+  background: #dbeafe;
 }
 
 .saveBtn {
   background: #E1000F;
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.9rem;
-  padding: 0.65rem 1.3rem;
+  font-size: 0.85rem;
+  padding: 0.55rem 1rem;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(225, 0, 15, 0.3);
+  box-shadow: 0 4px 12px rgba(225, 0, 15, 0.2);
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
 }
 
 .saveBtn:hover {
@@ -394,26 +450,48 @@
 
 /* Media Queries Responsivos (Mobile Mode) */
 @media (max-width: 768px) {
-  .header {
+  .topBar {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.25rem 1rem;
-  }
-
-  .headerLeft {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .headerActions {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .brand {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .brandLogo {
+    width: 32px;
+    height: 32px;
+    font-size: 1.15rem;
+    border-radius: 8px;
+  }
+
+  .brandSubtitle {
+    display: none; /* Ocultar para ganar espacio vertical en móviles */
+  }
+
+  .brandTitle {
+    font-size: 1.05rem;
+  }
+
+  .topActions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: 0.5rem;
+  }
+
+  .themeToggleBtn,
+  .previewBtn,
+  .saveBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.55rem 0.25rem;
+    font-size: 0.8rem;
+    border-radius: 8px;
   }
 
   .tabNav {
@@ -431,16 +509,17 @@
 
   .main {
     padding: 0 1rem;
-    margin: 1.25rem auto;
+    margin: 1rem auto;
   }
 
   .card {
-    padding: 1.35rem 1rem;
+    padding: 1.25rem 1rem;
+    border-radius: 12px;
   }
 
   .formGrid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.85rem;
   }
 
   .formGridFull {
@@ -450,6 +529,7 @@
   .horarioRow {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.5rem;
   }
 
   .toast {
